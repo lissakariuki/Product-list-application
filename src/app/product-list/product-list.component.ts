@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
+import { COMPILER_OPTIONS } from '@angular/core'; 
 
 @Component({
   selector: 'app-product-list',

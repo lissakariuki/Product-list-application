@@ -1,7 +1,9 @@
 <h2>Product List</h2>
 <ul>
-  <li *ngFor="let product of product">
+  @for(product of product; track product.id) {
+  <li >
     <strong>{{ product.name }}</strong> - ${{ product.price }}<br>
     <small>{{ product.description }}</small>
   </li>
+}
 </ul>

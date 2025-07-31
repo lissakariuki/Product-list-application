@@ -23,9 +23,7 @@ li {
   transition: box-shadow 0.2s;
   align-items: center;
   display: flex;
-  position: absolute;
-
-
+  
   &:hover {
     box-shadow: 0 4px 16px rgba(44, 62, 80, 0.12);
     background: #eef6fa;
