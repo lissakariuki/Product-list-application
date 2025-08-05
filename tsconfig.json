@@ -16,6 +16,11 @@
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
+    "paths": {
+      "product-list-feature": [
+        "./dist/product-list-feature"
+      ]
+    },
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
