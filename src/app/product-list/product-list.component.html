@@ -1,6 +1,6 @@
 <h2>Product List</h2>
 <ul>
-  @for(product of product; track product.id) {
+  @for(product of productListing; track product.id) {
   <li >
     <strong>{{ product.name }}</strong> - ${{ product.price }}<br>
     <small>{{ product.description }}</small>
