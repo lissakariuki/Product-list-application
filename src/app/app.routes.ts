@@ -3,7 +3,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
-{ path: '', component: ProductListComponent },
-{path: 'home', component: HomeComponent},
-{}
+
+{path: '', component: HomeComponent},
+{ path: 'products', component: ProductListComponent },
 ];
