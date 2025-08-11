@@ -9,12 +9,22 @@ import {ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
 })
 export class ProductFormComponent {
   // Form controls for product details
-  productForm = new FormGroup ({
-  id: new FormControl(''),
-  name: new FormControl(''),
-  price: new FormControl(''),
-  description:new FormControl(''),
-  })
-}
+
+  id = new FormControl('');
+  name = new FormControl('');
+  price = new FormControl('');
+  description = new FormControl('');
+
+   submit() {
+    console.log('Form values:', {
+      id: this.id.value,
+      name: this.name.value,
+      price: this.price.value,
+      description: this.description.value,
+    });
+   }
+  };
+
+
 
 
