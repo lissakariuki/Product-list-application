@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormControl} from '@angular/forms';
+import {ReactiveFormsModule, FormControl, FormGroup} from '@angular/forms';
 @Component({
   selector: 'app-product-form',
   standalone: true,
@@ -8,10 +8,13 @@ import {ReactiveFormsModule, FormControl} from '@angular/forms';
   styleUrl: './product-form.component.scss'
 })
 export class ProductFormComponent {
-  id = new FormControl('')
-  name = new FormControl('');
-  price = new FormControl('');
-  description = new FormControl('');
-
-
+  // Form controls for product details
+  productForm = new FormGroup ({
+  id: new FormControl(''),
+  name: new FormControl(''),
+  price: new FormControl(''),
+  description:new FormControl(''),
+  })
 }
+
+
