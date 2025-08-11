@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 
 export const routes: Routes = [
-{ path: ' ', component: HomeComponent },
-{path: 'products', component: ProductListComponent},
-{ path: 'product-form', component: ProductFormComponent }
+{ path: ' ', component: ProductFormComponent },
+//{path: 'products', component: ProductListComponent},
+//{ path: 'product-form', component: ProductFormComponent }
 ];

@@ -1,1 +1,10 @@
-<p>Product forms works!</p>
+<label for="Product ID">Product ID: </label>
+<input id = "id" type = "string" [formControl] = "id" Placeholder="Enter Product ID" >
+<label for="Product Name">Product Name: </label>
+<input id = "name" type = "text" [formControl] = "name" Placeholder="Enter Product Name">
+<label for="Product Price">Product Price: </label>
+<input id = "price" type = "text" [formControl] = "price" Placeholder="Enter product Price">
+<label for="Product Description">Product Description: </label>
+<textarea id = "description" [formControl] = "description" Placeholder = "Enter  a description"></textarea>
+<!--<button (click)="submit()">Submit</button>
+<p *ngIf="submitted">Product submitted successfully!</p>-->

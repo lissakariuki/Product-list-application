@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-
+import {ReactiveFormsModule, FormControl} from '@angular/forms';
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
 })
 export class ProductFormComponent {
+  id = new FormControl('')
+  name = new FormControl('');
+  price = new FormControl('');
+  description = new FormControl('');
+
 
 }
