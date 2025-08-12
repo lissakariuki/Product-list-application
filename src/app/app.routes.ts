@@ -7,5 +7,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 export const routes: Routes = [
 { path: 'Home', component: HomeComponent },
 { path: 'products', component: ProductListComponent },
-{ path: 'form', component: ProductFormComponent }
+{ path: 'form', component: ProductFormComponent },
+{ path: '', redirectTo: 'home', pathMatch: 'full' },
+{ path: '**', redirectTo: 'home'}
 ];
