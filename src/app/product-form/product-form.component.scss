@@ -1,28 +1,404 @@
+// Product form page styling with cohesive theme
+:host {
+  display: block;
+  min-height: calc(100vh - 80px); // Account for navbar height
+  background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+  padding: 3rem 1.5rem;
+}
+
+// Form container with modern card design
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  animation: slideInUp 0.6s ease-out;
+  
+  // Responsive design
+  @media (max-width: 768px) {
+    margin: 0 1rem;
+    max-width: none;
+  }
+  
+  @media (max-width: 480px) {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+// Form header with gradient background
+.form-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  
+  // Decorative overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.5;
+  }
+  
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    letter-spacing: -0.025em;
+    position: relative;
+    z-index: 1;
+  }
+  
+  p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem;
+    
+    h2 {
+      font-size: 1.75rem;
+    }
+    
+    p {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Main form styling
+.product-form {
+  padding: 2.5rem 2rem;
+  
+  @media (max-width: 480px) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+// Form group styling for consistent spacing
+.form-group {
+  margin-bottom: 2rem;
+  
+  &:last-of-type {
+    margin-bottom: 2.5rem;
+  }
+}
+
+// Label styling with modern typography
 label {
   display: block;
-  margin-top: 1rem;
   font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  
+  // Required field indicator (for future use)
+  &.required::after {
+    content: '*';
+    color: var(--error-color);
+    margin-left: 0.25rem;
+  }
 }
 
+// Input field styling with modern design
 input[type="text"],
+input[type="number"],
 textarea {
-  width: 300px;        
-  max-width: 100%;    
-  margin-top: 0.3rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--neutral-50);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
   box-sizing: border-box;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;   
+  
+  // Placeholder styling
+  &::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+  
+  // Focus state
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  // Hover state
+  &:hover:not(:focus) {
+    border-color: var(--neutral-300);
+    background-color: white;
+  }
+  
+  // Error state (for future validation)
+  &.error {
+    border-color: var(--error-color);
+    background-color: rgba(239, 68, 68, 0.05);
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+  
+  // Success state (for future validation)
+  &.success {
+    border-color: var(--success-color);
+    background-color: rgba(16, 185, 129, 0.05);
+  }
 }
 
+// Textarea specific styling
 textarea {
-  min-height: 80px;    
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
 }
 
-button {
-  margin-top: 1.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
+// Price input wrapper for currency symbol
+.price-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  .currency-symbol {
+    position: absolute;
+    left: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  input {
+    padding-left: 2.5rem;
+  }
+}
+
+// Form actions container
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  
+  // Responsive layout
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// Button styling with modern design
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
   cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  
+  // Button text
+  .btn-text {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Primary button variant
+  &.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: transparent;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+  }
+  
+  // Secondary button variant
+  &.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+    
+    &:hover {
+      background: var(--neutral-100);
+      border-color: var(--neutral-300);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  // Focus state for accessibility
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  }
+  
+  // Disabled state
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
+
+// Loading state animation
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Form validation message styling
+.form-message {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &.error {
+    color: var(--error-color);
+    background-color: rgba(239, 68, 68, 0.1);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--error-color);
+  }
+  
+  &.success {
+    color: var(--success-color);
+    background-color: rgba(16, 185, 129, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--success-color);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  &.info {
+    color: var(--text-secondary);
+  }
+}
+
+// Required field indicator styling
+label.required::after {
+  content: '*';
+  color: var(--error-color);
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+// Read-only input styling
+input[readonly] {
+  background-color: var(--neutral-100) !important;
+  color: var(--text-secondary) !important;
+  cursor: not-allowed;
+  
+  &:hover,
+  &:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .form-header {
+    background: var(--text-primary);
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  input,
+  textarea {
+    border-width: 2px;
+    border-color: var(--text-primary);
+  }
+  
+  .btn-primary {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .form-container {
+    animation: none;
+  }
+  
+  input,
+  textarea,
+  .btn {
+    transition: none;
+    
+    &:hover,
+    &:focus {
+      transform: none;
+    }
+  }
 }

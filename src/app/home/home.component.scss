@@ -1,0 +1,233 @@
+// Home page container styling with modern design
+.home-container {
+  min-height: calc(100vh - 80px); // Account for navbar height
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(135deg, var(--neutral-50) 0%, var(--neutral-100) 100%);
+  position: relative;
+  overflow: hidden;
+
+  // Decorative background elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    animation: float 25s ease-in-out infinite reverse;
+    z-index: -1;
+  }
+
+  // Main heading styling
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    
+    // Gradient text effect
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    // Text shadow for depth
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    // Animation for engaging entrance
+    animation: slideInUp 0.8s ease-out;
+    
+    // Responsive typography
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  // Subtitle/description styling
+  p {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    
+    // Animation delay for staggered entrance
+    animation: slideInUp 0.8s ease-out 0.2s both;
+    
+    // Responsive typography
+    @media (max-width: 768px) {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+      max-width: 90%;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  // Call-to-action section (if needed for future enhancements)
+  .cta-section {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    animation: slideInUp 0.8s ease-out 0.4s both;
+    
+    // Responsive layout for mobile
+    @media (max-width: 640px) {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  // Feature cards container (for future use)
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+    width: 100%;
+    max-width: 900px;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+  }
+
+  // Individual feature card styling
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: all 0.3s ease;
+    
+    // Hover effects for interactivity
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-color);
+    }
+    
+    // Icon styling within cards
+    .icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+      animation: none; // Override global p animation
+    }
+  }
+}
+
+// Keyframe animations for engaging entrance effects
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+// High contrast mode support for accessibility
+@media (prefers-contrast: high) {
+  .home-container {
+    h1 {
+      background: none;
+      -webkit-text-fill-color: initial;
+      color: var(--text-primary);
+    }
+    
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+}
+
+// Reduced motion support for accessibility
+@media (prefers-reduced-motion: reduce) {
+  .home-container {
+    &::before,
+    &::after {
+      animation: none;
+    }
+    
+    h1,
+    p,
+    .cta-section {
+      animation: none;
+    }
+    
+    .feature-card {
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+}

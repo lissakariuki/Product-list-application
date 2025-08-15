@@ -1,8 +1,9 @@
 <h2>Product List</h2>
 <ul>
   @for(product of productListing; track product.id) {
-  <li >
-    <strong>{{ product.name }}</strong> - ${{ product.price }}<br>
+  <li>
+    <strong>{{ product.name }}</strong>
+    <div class="price">{{ product.price }}</div>
     <small>{{ product.description }}</small>
   </li>
 }

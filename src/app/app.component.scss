@@ -1,10 +1,15 @@
+// Navigation bar styling with modern design
 .navbar {
-  background: #2980b9;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   padding: 1rem 0;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
 
   .navbar-container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -12,23 +17,95 @@
     padding: 0 1.5rem;
   }
 
-  
-
+  // Logo styling with modern typography
   .logo {
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 2px;
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
-
-
+  // Navigation links container
   .nav-links {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 0.75rem;
     margin: 0;
     padding: 0;
-  
+
+    // Navigation button styling
+    button {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--border-radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+
+      // Hover effects for interactivity
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      // Active state
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      // Focus state for accessibility
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  // Responsive design for smaller screens
+  @media (max-width: 768px) {
+    .navbar-container {
+      padding: 0 1rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      gap: 0.5rem;
+
+      button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links {
+      button {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
   }
 }
