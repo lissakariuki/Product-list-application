@@ -14,6 +14,7 @@ export class ProductFormComponent {
   name = new FormControl('');
   price = new FormControl('');
   description = new FormControl('');
+productForm: FormGroup<any> | undefined;
 
    submit() {
     console.log('Form values:', {

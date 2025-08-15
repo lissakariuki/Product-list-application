@@ -12,6 +12,8 @@
     padding: 0 1.5rem;
   }
 
+  
+
   .logo {
     color: #fff;
     font-size: 1.5rem;
@@ -19,25 +21,14 @@
     letter-spacing: 2px;
   }
 
+
+
   .nav-links {
     list-style: none;
     display: flex;
     gap: 1.5rem;
     margin: 0;
     padding: 0;
-
-    li {
-      a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.1rem;
-        transition: color 0.2s;
-
-        &.active,
-        &:hover {
-          color: #f1c40f;
-        }
-      }
-    }
+  
   }
 }
