@@ -5,5 +5,8 @@
     <strong>{{ product.name }}</strong> - ${{ product.price }}<br>
     <small>{{ product.description }}</small>
   </li>
-}
+  <button (click)="editProduct(product)">Edit</button>
+  <button (click)="deleteProduct(product)">Delete</button>}
 </ul>
+  
+]]

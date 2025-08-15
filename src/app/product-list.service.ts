@@ -4,6 +4,9 @@ import { ProductInfo } from './product-list/product.model';
   providedIn: 'root'
 })
 export class ProductListService {
+  deleteProduct(id: number) {
+    throw new Error('Method not implemented.');
+  }
   productListing : ProductInfo[] = [
       { id: 1,
         name: 'Water Bottle', 
