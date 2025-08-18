@@ -1,7 +1,7 @@
 <div class="form-container">
   <div class="form-header">
-    <h2>Add New Product</h2>
-    <p>Fill in the details below to add a new product to your inventory</p>
+    <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+    <p>{{ isEditMode ? 'Update the details below to modify the product' : 'Fill in the details below to add a new product to your inventory' }}</p>
   </div>
 
   <form class="product-form" [formGroup]="productForm">
@@ -74,7 +74,7 @@
         (click)="submit()"
         [disabled]="isSubmitting">
         <span class="btn-text">
-          {{ isSubmitting ? 'Adding...' : 'Add Product' }}
+          {{ isSubmitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update Product' : 'Add Product') }}
         </span>
       </button>
       <button 

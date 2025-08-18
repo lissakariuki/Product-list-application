@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductListService } from '../product-list.service';
 import { ProductInfo } from '../product-list/product.model';
 import { CommonModule } from '@angular/common';
@@ -12,15 +12,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnInit {
   // Inject services
   private productService = inject(ProductListService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   // Form state
   isSubmitting = false;
   submitMessage = '';
   submitMessageType: 'success' | 'error' | '' = '';
+  isEditMode = false;
+  editingProductId: number | null = null;
 
   // Form controls with validation
   id = new FormControl('', [Validators.required]);
@@ -36,9 +39,32 @@ export class ProductFormComponent {
     description: this.description
   });
 
-  constructor() {
-    // Auto-generate next ID
-    this.id.setValue(this.productService.getNextId().toString());
+  ngOnInit() {
+    // Check if we're in edit mode
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.isEditMode = true;
+      this.editingProductId = parseInt(productId, 10);
+      this.loadProductForEdit(this.editingProductId);
+      // In edit mode, disable ID field
+      this.id.disable();
+    } else {
+      // In add mode, auto-generate next ID
+      this.id.setValue(this.productService.getNextId().toString());
+    }
+  }
+
+  loadProductForEdit(productId: number) {
+    const product = this.productService.getProductsById(productId);
+    if (product) {
+      this.id.setValue(product.id.toString());
+      this.name.setValue(product.name);
+      this.price.setValue(product.price.toString());
+      this.description.setValue(product.description);
+    } else {
+      // Product not found, redirect to products page
+      this.router.navigate(['/products']);
+    }
   }
 
   submit() {
@@ -50,40 +76,63 @@ export class ProductFormComponent {
         // Get form values
         const formValues = this.productForm.value;
         
-        // Create new product
-        const newProduct: ProductInfo = {
-          id: parseInt(formValues.id!, 10),
-          name: formValues.name!,
-          price: parseFloat(formValues.price!),
-          description: formValues.description!
-        };
+        if (this.isEditMode && this.editingProductId) {
+          // Update existing product
+          const updatedProduct: Partial<ProductInfo> = {
+            name: formValues.name!,
+            price: parseFloat(formValues.price!),
+            description: formValues.description!
+          };
 
-        // Check if ID already exists
-        if (this.productService.getProductsById(newProduct.id)) {
-          this.submitMessage = 'A product with this ID already exists. Please use a different ID.';
-          this.submitMessageType = 'error';
-          this.isSubmitting = false;
-          return;
+          if (this.productService.updateProduct(this.editingProductId, updatedProduct)) {
+            this.submitMessage = 'Product updated successfully!';
+            this.submitMessageType = 'success';
+            
+            // Navigate to products page after delay
+            setTimeout(() => {
+              this.router.navigate(['/products']);
+            }, 1500);
+          } else {
+            this.submitMessage = 'Error updating product. Product may not exist.';
+            this.submitMessageType = 'error';
+          }
+        } else {
+          // Create new product
+          const newProduct: ProductInfo = {
+            id: parseInt(formValues.id!, 10),
+            name: formValues.name!,
+            price: parseFloat(formValues.price!),
+            description: formValues.description!
+          };
+
+          // Check if ID already exists
+          if (this.productService.getProductsById(newProduct.id)) {
+            this.submitMessage = 'A product with this ID already exists. Please use a different ID.';
+            this.submitMessageType = 'error';
+            this.isSubmitting = false;
+            return;
+          }
+
+          // Add product to service
+          this.productService.addProduct(newProduct);
+          
+          // Show success message
+          this.submitMessage = 'Product added successfully!';
+          this.submitMessageType = 'success';
+          
+          // Reset form and generate new ID
+          this.productForm.reset();
+          this.id.setValue(this.productService.getNextId().toString());
+          
+          // Navigate to products page after delay
+          setTimeout(() => {
+            this.router.navigate(['/products']);
+          }, 1500);
         }
 
-        // Add product to service
-        this.productService.addProduct(newProduct);
-        
-        // Show success message
-        this.submitMessage = 'Product added successfully!';
-        this.submitMessageType = 'success';
-        
-        // Reset form and generate new ID
-        this.productForm.reset();
-        this.id.setValue(this.productService.getNextId().toString());
-        
-        // Navigate to products page after delay
-        setTimeout(() => {
-          this.router.navigate(['/products']);
-        }, 1500);
-
       } catch (error) {
-        this.submitMessage = 'Error adding product. Please check your input and try again.';
+        const action = this.isEditMode ? 'updating' : 'adding';
+        this.submitMessage = `Error ${action} product. Please check your input and try again.`;
         this.submitMessageType = 'error';
       } finally {
         this.isSubmitting = false;

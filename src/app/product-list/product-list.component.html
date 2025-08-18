@@ -1,10 +1,16 @@
 <h2>Product List</h2>
-<ul>
+<div class="product-grid">
   @for(product of productListing; track product.id) {
-  <li>
-    <strong>{{ product.name }}</strong>
-    <div class="price">{{ product.price }}</div>
-    <small>{{ product.description }}</small>
-  </li>
-}
-</ul>
+  <div class="product-card">
+    <div class="product-info">
+      <strong class="product-name">{{ product.name }}</strong>
+      <div class="price">${{ product.price }}</div>
+      <small class="description">{{ product.description }}</small>
+    </div>
+    <div class="product-actions">
+      <button class="btn btn-edit" (click)="editProduct(product.id)">Edit</button>
+      <button class="btn btn-delete" (click)="deleteProduct(product.id)">Delete</button>
+    </div>
+  </div>
+  }
+</div>
