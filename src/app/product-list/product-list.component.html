@@ -2,11 +2,15 @@
 <ul>
   @for(product of productListing; track product.id) {
   <li >
-    <strong>{{ product.name }}</strong> - ${{ product.price }}<br>
-    <small>{{ product.description }}</small>
-  </li>
-  <button (click)="editProduct(product)">Edit</button>
-  <button (click)="deleteProduct(product)">Delete</button>}
+    <strong>{{ product.name }}</strong> 
+    <div class="price">{{ product.price }}</div>
+    <small>{{ product.description }}</small><br/>
+    
+    <div class="product-actions">
+    <button class="edit" (click)="editProduct(product)">Edit</button><br/>
+    <button class="delete" (click)="deleteProduct(product)">Delete</button>
+  </div>
+  </li>}
 </ul>
   
-]]
+

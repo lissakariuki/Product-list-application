@@ -247,8 +247,8 @@ textarea {
   // Primary button variant
   &.btn-primary {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-color: transparent;
+    color: Purple;
+    border-color: var(--border-color);
     
     &:hover {
       transform: translateY(-2px);
@@ -264,7 +264,7 @@ textarea {
   // Secondary button variant
   &.btn-secondary {
     background: transparent;
-    color: var(--text-secondary);
+    color: Purple;
     border-color: var(--border-color);
     
     &:hover {

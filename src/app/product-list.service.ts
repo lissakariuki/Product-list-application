@@ -4,9 +4,6 @@ import { ProductInfo } from './product-list/product.model';
   providedIn: 'root'
 })
 export class ProductListService {
-  deleteProduct(id: number) {
-    throw new Error('Method not implemented.');
-  }
   productListing : ProductInfo[] = [
       { id: 1,
         name: 'Water Bottle', 
@@ -24,9 +21,38 @@ export class ProductListService {
   
   getProducts(): ProductInfo[] {
     return this.productListing;
-}
+  }
+
   getProductsById(id: number): ProductInfo | undefined {
     return this.productListing.find((product: { id: any; }) => product.id === id);
-  }  
-}
+  }
 
+  addProduct(product: ProductInfo): void {
+    this.productListing.push(product);
+  }
+
+  getNextId(): number {
+    if (this.productListing.length === 0) {
+      return 1;
+    }
+    return this.productListing[this.productListing.length - 1]?.id + 1;
+  }
+
+  deleteProduct(id: number): boolean {
+    const index = this.productListing.findIndex(product => product.id === id);
+    if (index > -1) {
+      this.productListing.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  updateProduct(id: number, updatedProduct: Partial<ProductInfo>): boolean {
+    const index = this.productListing.findIndex(product => product.id === id);
+    if (index > -1) {
+      this.productListing[index] = { ...this.productListing[index], ...updatedProduct };
+      return true;
+    }
+    return false;
+  }
+}

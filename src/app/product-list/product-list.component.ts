@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
@@ -19,8 +19,7 @@ export class ProductListComponent {
   constructor() {
     this.productListing = this.productListService.getProducts();
   }
-
-  editProduct(product: ProductInfo) {
+ editProduct(product: ProductInfo) {
     console.log('Editing product:', product);
     // Navigate to the form page with the product id
     this.router.navigate(['/product-form', product.id]);
@@ -36,3 +35,5 @@ export class ProductListComponent {
     return product.id;
   }
 }
+
+  

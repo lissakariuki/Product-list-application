@@ -1,21 +1,103 @@
-<div class="form-group">
-  <label for="id">Product ID:</label>
-  <input id="id" type="text" [formControl]="id" placeholder="Enter Product ID" />
-</div>
+<div class="form-container">
+  <div class="form-header">
+    <h2>Add New Product</h2>
+    <p>Fill in the details below to add a new product to your inventory</p>
+  </div>
 
-<div class="form-group">
-  <label for="name">Product Name:</label>
-  <input id="name" type="text" [formControl]="name" placeholder="Enter Product Name" />
-</div>
+  <form class="product-form" [formGroup]="productForm">
+    
+    @if (submitMessage) {
+      <div class="form-message" [class]="submitMessageType">
+        {{ submitMessage }}
+      </div>
+    }
 
-<div class="form-group">
-  <label for="price">Product Price:</label>
-  <input id="price" type="text" [formControl]="price" placeholder="Enter Product Price" />
-</div>
+    <div class="form-group">
+      <label for="id" class="required">Product ID</label>
+      <input
+        id="id"
+        type="text"
+        formControlName="id"
+        placeholder="Auto-generated ID"
+        readonly
+        [class.error]="hasFieldError('id')" />
+      
+      @if (hasFieldError('id')) {
+        <div class="form-message error">
+          {{ getFieldError('id') }}
+        </div>
+      }
+    </div>
 
-<div class="form-group">
-  <label for="description">Product Description:</label>
-  <textarea id="description" [formControl]="description" placeholder="Enter a description"></textarea>
-</div>
+    <div class="form-group">
+      <label for="name" class="required">Product Name</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Enter product name"
+        [class.error]="hasFieldError('name')" />
+      
+      @if (hasFieldError('name')) {
+        <div class="form-message error">
+          {{ getFieldError('name') }}
+        </div>
+      }
+    </div>
 
-<button (click)="submit()">Submit</button>
+    <div class="form-group">
+      <label for="price" class="required">Product Price</label>
+      <div class="price-input-wrapper">
+        <span class="currency-symbol">$</span>
+        <input
+          id="price"
+          type="number"
+          formControlName="price"
+          placeholder="0.00"
+          step="0.01"
+          min="0"
+          [class.error]="hasFieldError('price')" />
+      </div>
+
+      @if (hasFieldError('price')) {
+        <div class="form-message error">
+          {{ getFieldError('price') }}
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="required">Product Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Enter a detailed description of the product"
+        [class.error]="hasFieldError('description')"></textarea>
+      
+      @if (hasFieldError('description')) {
+        <div class="form-message error">
+          {{ getFieldError('description') }}
+        </div>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="submit()"
+        [disabled]="isSubmitting">
+        <span class="btn-text">
+          {{ isSubmitting ? 'Adding...' : 'Add Product' }}
+        </span>
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="cancel()"
+        [disabled]="isSubmitting">
+        <span class="btn-text">Cancel</span>
+      </button>
+    </div>
+  </form>
+</div>
