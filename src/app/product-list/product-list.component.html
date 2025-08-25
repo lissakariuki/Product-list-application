@@ -1,21 +1,6 @@
 <h2>Product List</h2>
 <div class="product-grid">
   @for(product of productListing; track product.id) {
-<<<<<<< HEAD
-  <li >
-    <strong>{{ product.name }}</strong> 
-    <div class="price">{{ product.price }}</div>
-    <small>{{ product.description }}</small><br/>
-    
-    <div class="product-actions">
-    <button class="edit" (click)="editProduct(product)">Edit</button><br/>
-    <button class="delete" (click)="deleteProduct(product)">Delete</button>
-  </div>
-  </li>}
-</ul>
-  
-
-=======
   <div class="product-card">
     <div class="product-info">
       <strong class="product-name">{{ product.name }}</strong>
@@ -29,4 +14,3 @@
   </div>
   }
 </div>
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
