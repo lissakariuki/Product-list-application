@@ -12,30 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
-<<<<<<< HEAD
-  productListing: ProductInfo[] = [];
-  productListService = inject(ProductListService);
-  router = inject(Router);
-
-  constructor() {
-    this.productListing = this.productListService.getProducts();
-  }
- editProduct(product: ProductInfo) {
-    console.log('Editing product:', product);
-    // Navigate to the form page with the product id
-    this.router.navigate(['/product-form', product.id]);
-  }
-
-  deleteProduct(product: ProductInfo) {
-    console.log('Deleting product:', product);
-    // Call the service to delete the product
-    this.productListService.deleteProduct(product.id);
-  }
-
-  trackById(index: number, product: ProductInfo): number {
-    return product.id;
-  }
-=======
      productListing : ProductInfo[] = [];
      productListService = inject(ProductListService);
      router = inject(Router);
@@ -56,7 +32,6 @@ export class ProductListComponent {
         }
       }
     }
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 }
 
   

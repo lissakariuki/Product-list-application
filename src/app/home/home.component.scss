@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-.home-container {
-  min-height: calc(100vh - 80px);
-=======
 // Home page container styling with modern design
 .home-container {
   min-height: calc(100vh - 80px); // Account for navbar height
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,36 +10,6 @@
   position: relative;
   overflow: hidden;
 
-<<<<<<< HEAD
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    z-index: -1;
-    animation: float ease-in-out infinite;
-  }
-
-  &::before {
-    top: -50%;
-    left: -50%;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
-    animation-duration: 20s;
-  }
-
-  &::after {
-    bottom: -50%;
-    right: -50%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
-    animation-duration: 25s;
-    animation-direction: reverse;
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-=======
   // Decorative background elements
   &::before {
     content: '';
@@ -75,20 +40,10 @@
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
     color: var(--text-primary);
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     text-align: center;
     margin-bottom: 1.5rem;
     line-height: 1.2;
     letter-spacing: -0.025em;
-<<<<<<< HEAD
-    background: linear-gradient(135deg, blue, var(--secondary-color));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: slideInUp 0.8s ease-out;
-
-=======
     
     // Gradient text effect
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -103,78 +58,51 @@
     animation: slideInUp 0.8s ease-out;
     
     // Responsive typography
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     @media (max-width: 768px) {
       font-size: 2.5rem;
       margin-bottom: 1rem;
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     @media (max-width: 480px) {
       font-size: 2rem;
       margin-bottom: 0.75rem;
     }
   }
 
-<<<<<<< HEAD
-  p {
-    font-size: clamp(1.125rem, 2vw, 1.25rem);
-    color: blue;
-=======
   // Subtitle/description styling
   p {
     font-size: clamp(1.125rem, 2vw, 1.25rem);
     color: var(--text-secondary);
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     text-align: center;
     max-width: 600px;
     line-height: 1.6;
     margin-bottom: 2.5rem;
     font-weight: 400;
-<<<<<<< HEAD
-    animation: slideInUp 0.8s ease-out 0.2s both;
-
-=======
     
     // Animation delay for staggered entrance
     animation: slideInUp 0.8s ease-out 0.2s both;
     
     // Responsive typography
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     @media (max-width: 768px) {
       font-size: 1.125rem;
       margin-bottom: 2rem;
       max-width: 90%;
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     @media (max-width: 480px) {
       font-size: 1rem;
       margin-bottom: 1.5rem;
     }
   }
 
-<<<<<<< HEAD
-=======
   // Call-to-action section (if needed for future enhancements)
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
   .cta-section {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
     animation: slideInUp 0.8s ease-out 0.4s both;
-<<<<<<< HEAD
-
-=======
     
     // Responsive layout for mobile
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     @media (max-width: 640px) {
       flex-direction: column;
       width: 100%;
@@ -182,10 +110,7 @@
     }
   }
 
-<<<<<<< HEAD
-=======
   // Feature cards container (for future use)
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -193,11 +118,7 @@
     margin-top: 4rem;
     width: 100%;
     max-width: 900px;
-<<<<<<< HEAD
-
-=======
     
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
       gap: 1.5rem;
@@ -205,37 +126,24 @@
     }
   }
 
-<<<<<<< HEAD
-  .feature-card {
-    background: rgb(25, 49, 233);
-=======
   // Individual feature card styling
   .feature-card {
     background: white;
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     padding: 2rem;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
     text-align: center;
     transition: all 0.3s ease;
-<<<<<<< HEAD
-
-=======
     
     // Hover effects for interactivity
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     &:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
       border-color: var(--primary-color);
     }
-<<<<<<< HEAD
-
-=======
     
     // Icon styling within cards
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     .icon {
       width: 3rem;
       height: 3rem;
@@ -248,21 +156,6 @@
       color: white;
       font-size: 1.5rem;
     }
-<<<<<<< HEAD
-
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: blue;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 0.875rem;
-      color: blue;
-      margin: 0;
-      animation: none;
-=======
     
     h3 {
       font-size: 1.25rem;
@@ -276,16 +169,11 @@
       color: var(--text-secondary);
       margin: 0;
       animation: none; // Override global p animation
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     }
   }
 }
 
-<<<<<<< HEAD
-// Animations
-=======
 // Keyframe animations for engaging entrance effects
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -306,25 +194,15 @@
   }
 }
 
-<<<<<<< HEAD
-// Accessibility
-=======
 // High contrast mode support for accessibility
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 @media (prefers-contrast: high) {
   .home-container {
     h1 {
       background: none;
       -webkit-text-fill-color: initial;
-<<<<<<< HEAD
-      color: blue;
-    }
-
-=======
       color: var(--text-primary);
     }
     
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     &::before,
     &::after {
       display: none;
@@ -332,12 +210,6 @@
   }
 }
 
-<<<<<<< HEAD
-@media (prefers-reduced-motion: reduce) {
-  .home-container {
-    &::before,
-    &::after,
-=======
 // Reduced motion support for accessibility
 @media (prefers-reduced-motion: reduce) {
   .home-container {
@@ -346,20 +218,11 @@
       animation: none;
     }
     
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
     h1,
     p,
     .cta-section {
       animation: none;
     }
-<<<<<<< HEAD
-
-    .feature-card:hover {
-      transform: none;
-    }
-  }
-}
-=======
     
     .feature-card {
       &:hover {
@@ -368,4 +231,3 @@
     }
   }
 }
->>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
