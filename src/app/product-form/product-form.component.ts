@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+=======
+import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+>>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 import { ProductListService } from '../product-list.service';
 import { ProductInfo } from '../product-list/product.model';
 import { CommonModule } from '@angular/common';
@@ -12,15 +18,185 @@ import { CommonModule } from '@angular/common';
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
 })
+<<<<<<< HEAD
 export class ProductFormComponent {
   // Inject services
   private productService = inject(ProductListService);
   private router = inject(Router);
+=======
+export class ProductFormComponent implements OnInit {
+  // Inject services
+  private productService = inject(ProductListService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+>>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 
   // Form state
   isSubmitting = false;
   submitMessage = '';
   submitMessageType: 'success' | 'error' | '' = '';
+<<<<<<< HEAD
+=======
+  isEditMode = false;
+  editingProductId: number | null = null;
+
+  // Form controls with validation
+  id = new FormControl('', [Validators.required]);
+  name = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  price = new FormControl('', [Validators.required, Validators.min(0.01)]);
+  description = new FormControl('', [Validators.required, Validators.minLength(5)]);
+
+  // Form group for easier validation handling
+  productForm = new FormGroup({
+    id: this.id,
+    name: this.name,
+    price: this.price,
+    description: this.description
+  });
+
+  ngOnInit() {
+    // Check if we're in edit mode
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.isEditMode = true;
+      this.editingProductId = parseInt(productId, 10);
+      this.loadProductForEdit(this.editingProductId);
+      // In edit mode, disable ID field
+      this.id.disable();
+    } else {
+      // In add mode, auto-generate next ID
+      this.id.setValue(this.productService.getNextId().toString());
+    }
+  }
+
+  loadProductForEdit(productId: number) {
+    const product = this.productService.getProductsById(productId);
+    if (product) {
+      this.id.setValue(product.id.toString());
+      this.name.setValue(product.name);
+      this.price.setValue(product.price.toString());
+      this.description.setValue(product.description);
+    } else {
+      // Product not found, redirect to products page
+      this.router.navigate(['/products']);
+    }
+  }
+
+  submit() {
+    if (this.productForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
+      this.submitMessage = '';
+
+      try {
+        // Get form values
+        const formValues = this.productForm.value;
+        
+        if (this.isEditMode && this.editingProductId) {
+          // Update existing product
+          const updatedProduct: Partial<ProductInfo> = {
+            name: formValues.name!,
+            price: parseFloat(formValues.price!),
+            description: formValues.description!
+          };
+
+          if (this.productService.updateProduct(this.editingProductId, updatedProduct)) {
+            this.submitMessage = 'Product updated successfully!';
+            this.submitMessageType = 'success';
+            
+            // Navigate to products page after delay
+            setTimeout(() => {
+              this.router.navigate(['/products']);
+            }, 1500);
+          } else {
+            this.submitMessage = 'Error updating product. Product may not exist.';
+            this.submitMessageType = 'error';
+          }
+        } else {
+          // Create new product
+          const newProduct: ProductInfo = {
+            id: parseInt(formValues.id!, 10),
+            name: formValues.name!,
+            price: parseFloat(formValues.price!),
+            description: formValues.description!
+          };
+
+          // Check if ID already exists
+          if (this.productService.getProductsById(newProduct.id)) {
+            this.submitMessage = 'A product with this ID already exists. Please use a different ID.';
+            this.submitMessageType = 'error';
+            this.isSubmitting = false;
+            return;
+          }
+
+          // Add product to service
+          this.productService.addProduct(newProduct);
+          
+          // Show success message
+          this.submitMessage = 'Product added successfully!';
+          this.submitMessageType = 'success';
+          
+          // Reset form and generate new ID
+          this.productForm.reset();
+          this.id.setValue(this.productService.getNextId().toString());
+          
+          // Navigate to products page after delay
+          setTimeout(() => {
+            this.router.navigate(['/products']);
+          }, 1500);
+        }
+
+      } catch (error) {
+        const action = this.isEditMode ? 'updating' : 'adding';
+        this.submitMessage = `Error ${action} product. Please check your input and try again.`;
+        this.submitMessageType = 'error';
+      } finally {
+        this.isSubmitting = false;
+      }
+    } else {
+      // Mark all fields as touched to show validation errors
+      this.productForm.markAllAsTouched();
+      this.submitMessage = 'Please fill in all required fields correctly.';
+      this.submitMessageType = 'error';
+    }
+  }
+
+  cancel() {
+    this.router.navigate(['/products']);
+  }
+
+  // Helper methods for template
+  getFieldError(fieldName: string): string {
+    const control = this.productForm.get(fieldName);
+    if (control?.errors && control.touched) {
+      if (control.errors['required']) {
+        return `${this.getFieldDisplayName(fieldName)} is required.`;
+      }
+      if (control.errors['minlength']) {
+        return `${this.getFieldDisplayName(fieldName)} must be at least ${control.errors['minlength'].requiredLength} characters.`;
+      }
+      if (control.errors['min']) {
+        return `${this.getFieldDisplayName(fieldName)} must be greater than 0.`;
+      }
+    }
+    return '';
+  }
+
+  private getFieldDisplayName(fieldName: string): string {
+    const names: { [key: string]: string } = {
+      id: 'Product ID',
+      name: 'Product Name',
+      price: 'Price',
+      description: 'Description'
+    };
+    return names[fieldName] || fieldName;
+  }
+
+  hasFieldError(fieldName: string): boolean {
+    const control = this.productForm.get(fieldName);
+    return !!(control?.errors && control.touched);
+  }
+}
+>>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 
   // Form controls with validation
   id = new FormControl('', [Validators.required]);

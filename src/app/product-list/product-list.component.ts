@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
+<<<<<<< HEAD
   productListing: ProductInfo[] = [];
   productListService = inject(ProductListService);
   router = inject(Router);
@@ -34,6 +35,28 @@ export class ProductListComponent {
   trackById(index: number, product: ProductInfo): number {
     return product.id;
   }
+=======
+     productListing : ProductInfo[] = [];
+     productListService = inject(ProductListService);
+     router = inject(Router);
+
+    constructor(){
+       this.productListing = this.productListService.getProducts();
+    }
+
+    editProduct(productId: number): void {
+      this.router.navigate(['/edit', productId]);
+    }
+
+    deleteProduct(productId: number): void {
+      const product = this.productListService.getProductsById(productId);
+      if (product && confirm(`Are you sure you want to delete "${product.name}"?`)) {
+        if (this.productListService.deleteProduct(productId)) {
+          this.productListing = this.productListService.getProducts();
+        }
+      }
+    }
+>>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 }
 
   

@@ -198,6 +198,212 @@ textarea {
   input {
     padding-left: 2.5rem;
   }
+<<<<<<< HEAD
+=======
+}
+
+// Form actions container
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  
+  // Responsive layout
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// Button styling with modern design
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  
+  // Button text
+  .btn-text {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Primary button variant
+  &.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: transparent;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+  }
+  
+  // Secondary button variant
+  &.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+    
+    &:hover {
+      background: var(--neutral-100);
+      border-color: var(--neutral-300);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  // Focus state for accessibility
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  }
+  
+  // Disabled state
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
+
+// Loading state animation
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Form validation message styling
+.form-message {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &.error {
+    color: var(--error-color);
+    background-color: rgba(239, 68, 68, 0.1);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--error-color);
+  }
+  
+  &.success {
+    color: var(--success-color);
+    background-color: rgba(16, 185, 129, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--success-color);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  &.info {
+    color: var(--text-secondary);
+  }
+}
+
+// Required field indicator styling
+label.required::after {
+  content: '*';
+  color: var(--error-color);
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+// Read-only input styling
+input[readonly] {
+  background-color: var(--neutral-100) !important;
+  color: var(--text-secondary) !important;
+  cursor: not-allowed;
+  
+  &:hover,
+  &:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .form-header {
+    background: var(--text-primary);
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  input,
+  textarea {
+    border-width: 2px;
+    border-color: var(--text-primary);
+  }
+  
+  .btn-primary {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .form-container {
+    animation: none;
+  }
+  
+  input,
+  textarea,
+  .btn {
+    transition: none;
+    
+    &:hover,
+    &:focus {
+      transform: none;
+    }
+  }
+>>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 }
 
 // Form actions container

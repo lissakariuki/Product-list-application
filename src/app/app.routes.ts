@@ -8,4 +8,9 @@ export const routes: Routes = [
 { path: '', component: HomeComponent },
 { path: 'products', component: ProductListComponent },
 { path: 'form', component: ProductFormComponent },
+<<<<<<< HEAD
+=======
+{ path: 'edit/:id', component: ProductFormComponent },
+
+>>>>>>> a02358f46e67f70c0e116c1a33fea1ab43ef8cd0
 ];
