@@ -17,9 +17,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-<strong>Definition</strong>Product list is an application for displaying a lis of product to users.
-<strong>CRUD</strong>The user can be able to Create, Read, Update and Delete a product from the product list.
-<strong></strong>
+
+Definition Product list is an application for displaying a lis of product to users.
+CRUD The user can be able to Create, Read, Update and Delete a product from the product list.
+
 <!--## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
