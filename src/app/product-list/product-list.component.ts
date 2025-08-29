@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ProductInfo } from './product.model';
 import { CommonModule } from '@angular/common';
-import { ProductListService } from '../product-list.service';
+import { ProductListService } from '../services/product-list.service';
 import { Router } from '@angular/router';
 
 @Component({

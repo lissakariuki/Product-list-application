@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ProductInfo } from '../product-list/product.model';
-import { ProductListService } from '../product-list.service'; 
+import { ProductListService } from '../services/product-list.service'; 
 import { ProductListComponent } from '../product-list/product-list.component';
 import { CommonModule } from '@angular/common';
 @Component({

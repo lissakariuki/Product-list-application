@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductListService } from '../product-list.service';
+import { ProductListService } from '../services/product-list.service';
 import { ProductInfo } from '../product-list/product.model';
 import { CommonModule } from '@angular/common';
 
