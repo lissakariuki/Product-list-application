@@ -10,12 +10,4 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
-  //injecting the ProductListService to access product data
-   ProductListing: ProductInfo[] = [];
-   productListService=inject(ProductListService);
-
-  constructor() {
-    this.ProductListing = this.productListService.getProducts();
-}
-}
+export class HomeComponent {}
