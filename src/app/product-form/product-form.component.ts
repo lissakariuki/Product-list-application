@@ -26,9 +26,9 @@ export class ProductFormComponent implements OnInit {
   editingProductId: number | null = null;
 
   // Form controls with validation
-  id = new FormControl('', [Validators.required]);
-  name = new FormControl('', [Validators.required, Validators.minLength(2)]);
-  price = new FormControl('', [Validators.required, Validators.min(0.01)]);
+  id = new FormControl("string", [Validators.required]);
+  name = new FormControl("string", [Validators.required, Validators.minLength(2)]);
+  price = new FormControl("number", [Validators.required, Validators.min(0.01)]);
   description = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
   // Form group for easier validation handling
