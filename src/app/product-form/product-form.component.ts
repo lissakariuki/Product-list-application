@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductListService } from '../services/product-list.service';
 import { ProductInfo } from '../product-list/product.model';
 import { CommonModule } from '@angular/common';
+import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-form',
@@ -17,18 +18,17 @@ export class ProductFormComponent implements OnInit {
   private productService = inject(ProductListService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private snackBar = inject(MatSnackBar);
 
   // Form state
   isSubmitting = false;
-  submitMessage = '';
-  submitMessageType: 'success' | 'error' | '' = '';
   isEditMode = false;
   editingProductId: number | null = null;
 
   // Form controls with validation
-  id = new FormControl("string", [Validators.required]);
-  name = new FormControl("string", [Validators.required, Validators.minLength(2)]);
-  price = new FormControl("number", [Validators.required, Validators.min(0.01)]);
+  id = new FormControl('', [Validators.required]);
+  name = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  price = new FormControl('', [Validators.required, Validators.min(0.01)]);
   description = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
   // Form group for easier validation handling
@@ -67,17 +67,15 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  submit() {
+    submit() {
     if (this.productForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
-      this.submitMessage = '';
 
       try {
-        // Get form values
         const formValues = this.productForm.value;
         
         if (this.isEditMode && this.editingProductId) {
-          // Update existing product
+          // Update product
           const updatedProduct: Partial<ProductInfo> = {
             name: formValues.name!,
             price: parseFloat(formValues.price!),
@@ -85,16 +83,10 @@ export class ProductFormComponent implements OnInit {
           };
 
           if (this.productService.updateProduct(this.editingProductId, updatedProduct)) {
-            this.submitMessage = 'Product updated successfully!';
-            this.submitMessageType = 'success';
-            
-            // Navigate to products page after delay
-            setTimeout(() => {
-              this.router.navigate(['/products']);
-            }, 1500);
+            this.showNotification('Product updated successfully!', 'success');
+            this.router.navigate(['/products']);
           } else {
-            this.submitMessage = 'Error updating product. Product may not exist.';
-            this.submitMessageType = 'error';
+            this.showNotification('Error updating product. Product may not exist.', 'error');
           }
         } else {
           // Create new product
@@ -105,43 +97,25 @@ export class ProductFormComponent implements OnInit {
             description: formValues.description!
           };
 
-          // Check if ID already exists
           if (this.productService.getProductsById(newProduct.id)) {
-            this.submitMessage = 'A product with this ID already exists. Please use a different ID.';
-            this.submitMessageType = 'error';
+            this.showNotification('A product with this ID already exists.', 'error');
             this.isSubmitting = false;
             return;
           }
 
-          // Add product to service
           this.productService.addProduct(newProduct);
-          
-          // Show success message
-          this.submitMessage = 'Product added successfully!';
-          this.submitMessageType = 'success';
-          
-          // Reset form and generate new ID
-          this.productForm.reset();
-          this.id.setValue(this.productService.getNextId().toString());
-          
-          // Navigate to products page after delay
-          setTimeout(() => {
-            this.router.navigate(['/products']);
-          }, 1500);
+          this.showNotification('Product added successfully!', 'success');
+          this.router.navigate(['/products']);
         }
-
       } catch (error) {
         const action = this.isEditMode ? 'updating' : 'adding';
-        this.submitMessage = `Error ${action} product. Please check your input and try again.`;
-        this.submitMessageType = 'error';
+        this.showNotification(`Error ${action} product. Please try again.`, 'error');
       } finally {
         this.isSubmitting = false;
       }
     } else {
-      // Mark all fields as touched to show validation errors
       this.productForm.markAllAsTouched();
-      this.submitMessage = 'Please fill in all required fields correctly.';
-      this.submitMessageType = 'error';
+      this.showNotification('Please fill in all required fields correctly.', 'error');
     }
   }
 
@@ -149,6 +123,13 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['/products']);
   }
 
+  // ✅ Reusable snackbar method
+  private showNotification(message: string, type: 'success' | 'error') {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: type === 'success' ? ['snackbar-success'] : ['snackbar-error']
+    });
+  }
   // Helper methods for template
   getFieldError(fieldName: string): string {
     const control = this.productForm.get(fieldName);

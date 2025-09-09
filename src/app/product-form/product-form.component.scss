@@ -340,6 +340,15 @@ textarea {
     color: var(--text-secondary);
   }
 }
+.success-snackbar {
+  background: #4caf50; /* green */
+  color: #fff;
+}
+
+.error-snackbar {
+  background: #f44336; /* red */
+  color: #fff;
+}
 
 // Required field indicator styling
 label.required::after {
