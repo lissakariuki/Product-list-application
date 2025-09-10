@@ -18,8 +18,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-Definition Product list is an application for displaying a lis of product to users.
-CRUD The user can be able to Create, Read, Update and Delete a product from the product list.
+Product list is an application for displaying a list of product to users.
+CRUD: The user can be able to Create, Read, Update and Delete a product from the product list.
+Working on a feature of adding to cart.
 
 <!--## Running end-to-end tests
 
