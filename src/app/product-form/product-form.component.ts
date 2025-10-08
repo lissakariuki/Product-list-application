@@ -5,11 +5,11 @@ import { ProductListService } from '../services/product-list.service';
 import { ProductInfo } from '../product-list/product.model';
 import { CommonModule } from '@angular/common';
 import {MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
-
+import{signal} from '@angular/core';
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
 })
@@ -21,68 +21,87 @@ export class ProductFormComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
 
   // Form state
-  isSubmitting = false;
-  isEditMode = false;
-  editingProductId: number | null = null;
+
+  isSubmitting = signal(false);
+  isEditMode = signal(false);
+  editingProductId= signal <number | null> (null);
 
   // Form controls with validation
-  id = new FormControl('', [Validators.required]);
-  name = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  id = new FormControl('text', [Validators.required]);
+  title = new FormControl('', [Validators.required, Validators.minLength(2)]);
   price = new FormControl('', [Validators.required, Validators.min(0.01)]);
   description = new FormControl('', [Validators.required, Validators.minLength(5)]);
-
+  category = new FormControl('');
+  imageUrl = new FormControl('');
+  rating = new FormControl('0');
   // Form group for easier validation handling
   productForm = new FormGroup({
     id: this.id,
-    name: this.name,
+    title: this.title,
     price: this.price,
-    description: this.description
+    description: this.description,
+    category: this.category,
+    imageUrl: this.imageUrl,
+    rating: this.rating
   });
 
   ngOnInit() {
     // Check if we're in edit mode
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
-      this.isEditMode = true;
-      this.editingProductId = parseInt(productId, 10);
-      this.loadProductForEdit(this.editingProductId);
-      // In edit mode, disable ID field
-      this.id.disable();
+      this.isEditMode.set(true);
+      this.editingProductId.set(parseInt(productId, 10));
+      this.loadProductForEdit;
+     
     } else {
+       // In edit mode, disable ID field
+      this.id.disable();
       // In add mode, auto-generate next ID
-      this.id.setValue(this.productService.getNextId().toString());
+      //this.id.setValue(this.productService.getNextId().toString());
     }
   }
 
   loadProductForEdit(productId: number) {
-    const product = this.productService.getProductsById(productId);
-    if (product) {
-      this.id.setValue(product.id.toString());
-      this.name.setValue(product.name);
-      this.price.setValue(product.price.toString());
-      this.description.setValue(product.description);
-    } else {
-      // Product not found, redirect to products page
-      this.router.navigate(['/products']);
-    }
+    this.productService.getProductById(productId).subscribe({
+      next: (product) => {
+        if (product) {
+          this.id.setValue(product.id.toString());
+          this.title.setValue(product.title);
+          this.price.setValue(product.price.toString());
+          this.description.setValue(product.description);
+          this.category.setValue(product.category || '');
+          this.imageUrl.setValue(product.imageUrl || '');
+          this.rating.setValue(product.rating?.toString() || '0');
+        } else {
+          // Product not found, redirect to products page
+          this.router.navigate(['/products']);
+        }
+      },
+      error: () => {
+        this.router.navigate(['/products']);
+      }
+    });
   }
 
     submit() {
-    if (this.productForm.valid && !this.isSubmitting) {
-      this.isSubmitting = true;
+    if (this.productForm.valid && !this.isSubmitting()) {
+      this.isSubmitting.set(true);
 
       try {
         const formValues = this.productForm.value;
         
-        if (this.isEditMode && this.editingProductId) {
+        if (this.isEditMode() && this.editingProductId()) {
           // Update product
           const updatedProduct: Partial<ProductInfo> = {
-            name: formValues.name!,
+            title: formValues.title!,
             price: parseFloat(formValues.price!),
-            description: formValues.description!
+            description: formValues.description!,
+            category: formValues.category || '',
+            imageUrl: formValues.imageUrl || '',
+            rating: parseFloat(formValues.rating!) || 0
           };
 
-          if (this.productService.updateProduct(this.editingProductId, updatedProduct)) {
+          if (this.productService.updateProduct(this.editingProductId()!, updatedProduct)) {
             this.showNotification('Product updated successfully!', 'success');
             this.router.navigate(['/products']);
           } else {
@@ -92,14 +111,17 @@ export class ProductFormComponent implements OnInit {
           // Create new product
           const newProduct: ProductInfo = {
             id: parseInt(formValues.id!, 10),
-            name: formValues.name!,
+            title: formValues.title!,
             price: parseFloat(formValues.price!),
-            description: formValues.description!
+            description: formValues.description!,
+            category: formValues.category || '',
+            imageUrl: formValues.imageUrl || '',
+            rating: parseFloat(formValues.rating!) || 0
           };
 
-          if (this.productService.getProductsById(newProduct.id)) {
+          if (this.productService.getProductById(newProduct.id)) {
             this.showNotification('A product with this ID already exists.', 'error');
-            this.isSubmitting = false;
+            this.isSubmitting.set(false);
             return;
           }
 
@@ -108,10 +130,10 @@ export class ProductFormComponent implements OnInit {
           this.router.navigate(['/products']);
         }
       } catch (error) {
-        const action = this.isEditMode ? 'updating' : 'adding';
+        const action = this.isEditMode() ? 'updating' : 'adding';
         this.showNotification(`Error ${action} product. Please try again.`, 'error');
       } finally {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
       }
     } else {
       this.productForm.markAllAsTouched();
@@ -162,9 +184,6 @@ export class ProductFormComponent implements OnInit {
     return !!(control?.errors && control.touched);
   }
 }
-
-  
-        // Add product to service
 
 
 

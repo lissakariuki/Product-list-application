@@ -1,6 +1,9 @@
 export interface ProductInfo {
   id: number;
-  name: string;
+  title: string; // Optional title field
   price: number;
   description: string;
+  category?: string; 
+  imageUrl?: string; 
+  rating: number; // Optional rating field
 }

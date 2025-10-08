@@ -6,7 +6,11 @@ globalThis.ngJest = {
 module.exports = {
   preset: "jest-preset-angular",
   testEnvironment: "jest-environment-jsdom",
-  setupFilesAfterEnv: ["<rootDir>/src/setup-jest.ts"],
+  setupFilesAfterEnv: [
+  '<rootDir>/src/setup-jest.ts',
+  '<rootDir>/projects/product-list-feature/src/setup-jest.ts',
+],
+
   transform: {
     '^.+\\.ts$': 'ts-jest', // Only transform .ts files
   },
